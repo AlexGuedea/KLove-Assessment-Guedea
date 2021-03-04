@@ -1,0 +1,37 @@
+﻿@model KLove.Models.FavoriteVersesViewModel
+
+@{
+    ViewData["Title"] = "Favorites";
+}
+
+<h1>Favorites</h1>
+
+<div class="row">
+    <form asp-action="ToggleFavorite">
+        @foreach (var item in Model.favoriteVerses)
+        {
+            <div id=@item.VerseId>
+                <div class="col-6 col-sm-4">
+                    <div class="card" id="card">
+                        <img src="@Url.Content(item.ImageLink)" alt="Image" />
+                        <div class="card-body">
+                            <h1 class="card-title">@item.VerseDate.ToShortDateString()</h1>
+                            <a href=@item.ReferenceLink>NLT</a>
+                            <button type="submit" VerseId="@item.VerseId" value=@item.VerseId name="VerseId" onclick="RemoveCard(@item.VerseId); return true;" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-delete"></span> Remove as Favorite
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </form>
+</div>
+
+<script language="javascript">
+    function RemoveCard(VerseId) {
+        var x = document.getElementById(VerseId);
+        x.hidden = true;
+    }
+</script>
+

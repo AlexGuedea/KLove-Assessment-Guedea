@@ -1,0 +1,50 @@
+﻿@model KLove.Models.VersesData
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<h4>Find Verses by date</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <form asp-action="GetVersesData">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="VerseDate" class="control-label" id="VerseDate"></label>
+                <input asp-for="VerseDate" class="form-control" />
+                <span asp-validation-for="VerseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfVerses" class="control-label"></label>
+                <input asp-for="NumberOfVerses" class="form-control" />
+                <span asp-validation-for="NumberOfVerses" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+    type = "text/javascript" >
+        $(function () {
+            // Bootstrap DateTimePicker v4
+            $('#VerseDatePicker').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+        });
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+}

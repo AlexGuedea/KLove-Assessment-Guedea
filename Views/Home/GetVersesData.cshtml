@@ -1,0 +1,43 @@
+﻿@model KLove.Models.VerseResponses
+
+@{
+    ViewData["Title"] = "GetVersesData";
+}
+
+<h1>GetVersesData</h1>
+
+<div class="row">
+    <form asp-action="AddToFavorites">
+        @foreach (var item in Model.Verses)
+        {
+            <div class="col-4 col-sm-6">
+                <div class="card">
+                    <img src="@Url.Content(item.ImageLink)" alt="Image" />
+                    <div class="card-body">
+                        <button type="button" VerseResponse=@item value=@item name="VerseResponse" class="btn btn-default btn-sm" 
+                                onclick="AddToFavorites('@item.VerseText', '@item.ImageLink', '@item.VerseDate', '@item.VideoLink', '@item.ReferenceLink', '@item.VerseNumbers',
+                                '@item.Chapter', '@item.Book', '@item.BibleReferenceLink', '@item.FacebookShareUrl', '@item.IsValid', '@item.Id' , '@item.Url', '@item.TwitterShareUrl', '@item.PinterestShareUrl'); return true;">
+                            <span class="glyphicon glyphicon-save"></span>Add To Favorites
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    // Keep the UI from requesting a page load - save the data inline - Method will not insert a second duplicate row
+    function AddToFavorites(versetext, imagelink, versedate, videolink, referencelink, versenumbers, chapter, book, biblereferencelink, facebookshareurl, isvalid, id, url, twittershareurl, pinterestshareurl) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddToFavorites")",
+            data: {
+                VerseText: versetext, ImageLink: imagelink, VerseDate: versedate, VideoLink: videolink, ReferenceLink: referencelink,
+                VerseNumbers: versenumbers, Chapter: chapter, Book: book, BibleReferenceLink: biblereferencelink, FacebookShareUrl: facebookshareurl, TwitterShareUrl: twittershareurl,
+                PinterestShareUrl: pinterestshareurl, IsValid: isvalid, Id: id, Url: url
+            }
+        });
+    };
+</script>
